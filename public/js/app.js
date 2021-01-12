@@ -24,20 +24,18 @@ const message2 = document.querySelector("#message-2");
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const location = search.value;
-  fetch("http://localhost:3000/weather?address=" + location).then(
-    (response) => {
-      message1.textContent = "loading....";
-      message2.textContent = "";
-      response.json().then((weather) => {
-        if (weather.error) {
-          console.log(weather.error);
-          message1.textContent = weather.error;
-        } else {
-          console.log(weather);
-          message1.textContent = weather.WeatherForecast;
-          message2.textContent = weather.WeatherForecast;
-        }
-      });
-    }
-  );
+  fetch("/weather?address=" + location).then((response) => {
+    message1.textContent = "loading....";
+    message2.textContent = "";
+    response.json().then((weather) => {
+      if (weather.error) {
+        console.log(weather.error);
+        message1.textContent = weather.error;
+      } else {
+        console.log(weather);
+        message1.textContent = weather.WeatherForecast;
+        message2.textContent = weather.WeatherForecast;
+      }
+    });
+  });
 });
